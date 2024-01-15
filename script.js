@@ -17,7 +17,7 @@ function draw() {
 		rotateZ(90);
 		fill("red");
 		stroke("red");
-		cylinder(10, 100, 4, 1);
+		cylinder(5, 50, 4, 1);
 		bulletsX[i] += Math.cos(bulletsDir[i]) * 10;
 		bulletsY[i] += Math.sin(bulletsDir[i]) * 10;
 		bulletsZ[i] -= 100;
@@ -36,5 +36,5 @@ function draw() {
 	bulletsX.push(width / 2);
 	bulletsY.push(height / 2);
 	bulletsZ.push(0);
-	bulletsDir.push(direction + (Math.random() * 1) - 1);
+	bulletsDir.push(direction + (Math.random() * 0.1));
 }
