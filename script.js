@@ -1,4 +1,3 @@
-var direction = 0;
 var bulletsX = [];
 var bulletsY = [];
 var bulletsZ = [];
@@ -6,7 +5,8 @@ var bulletsDir = [];
 
 function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
-	rectMode(CENTER);
+  rectMode(CENTER);
+  angleMode(DEGREES);
 }
 
 function draw() {
@@ -14,14 +14,13 @@ function draw() {
 	for (var i = 0; i < bulletsX.length; i++) {
 		push();
 		translate(bulletsX[i], bulletsY[i], bulletsZ[i]);
-		rotateZ(90);
+		rotateX(90);
 		fill("red");
 		stroke("red");
 		cylinder(5, 50, 4, 1);
-		bulletsX[i] += Math.cos(bulletsDir[i]) * 10;
-		bulletsY[i] += Math.sin(bulletsDir[i]) * 10;
+		bulletsY[i] += bulletsDir[i];
 		bulletsZ[i] -= 100;
-		if (bulletsZ[i] <= - 50000) {
+		if (bulletsZ[i] <= - 500000) {
 			bulletsX.splice(i, 1);
 			bulletsY.splice(i, 1);
 			bulletsZ.splice(i, 1);
@@ -31,10 +30,11 @@ function draw() {
 	}
 	push();
 	translate(0, 0, 0);
-	direction = atan2(mouseY - height / 2, mouseX - width / 2);
+	rotateX(180 * mouseY / height + 180);
+	cone(10, 100);
 	pop();
-	bulletsX.push(width / 2);
-	bulletsY.push(height / 2);
+	bulletsX.push(200);
+	bulletsY.push(0);
 	bulletsZ.push(0);
-	bulletsDir.push(direction + (Math.random() * 0.1));
+	bulletsDir.push(180 * mouseY / height + 180);
 }
