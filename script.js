@@ -2,39 +2,38 @@ var bulletsX = [];
 var bulletsY = [];
 var bulletsZ = [];
 var bulletsDir = [];
+var shoot = false;
 
 function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
-  rectMode(CENTER);
   angleMode(DEGREES);
 }
 
 function draw() {
-	background(0);
-	for (var i = 0; i < bulletsX.length; i++) {
-		push();
-		translate(bulletsX[i], bulletsY[i], bulletsZ[i]);
-		rotateX(90);
-		fill("red");
-		stroke("red");
-		cylinder(5, 50, 4, 1);
-		bulletsY[i] += bulletsDir[i];
-		bulletsZ[i] -= 100;
-		if (bulletsZ[i] <= - 500000) {
-			bulletsX.splice(i, 1);
-			bulletsY.splice(i, 1);
-			bulletsZ.splice(i, 1);
-			bulletsDir.splice(i, 1);
-		}
-		pop();
-	}
-	push();
-	translate(0, 0, 0);
-	rotateX(180 * mouseY / height + 180);
-	cone(10, 100);
-	pop();
-	bulletsX.push(200);
-	bulletsY.push(0);
-	bulletsZ.push(0);
-	bulletsDir.push(180 * mouseY / height + 180);
+  background(0);
+  if (shoot) {
+    bulletsX.push(0);
+    bulletsY.push(0);
+    bulletsZ.push(0);
+    bulletsDir.push(atan2(mouseY - height / 2, mouseX - width / 2));
+  }
+  for (var i = 0; i < bulletsX.length, i += 1;) {
+    push();
+    translate(bulletsX[i], bulletsY[i], bulletsZ[i]);
+    cylinder(20, 1, 1, 1);
+    bulletsZ -= 1;
+    pop();
+  }
+}
+
+function keyPressed() {
+  if (key == " ") {
+    shoot = true;
+  }
+}
+
+function keyReleased() {
+  if (key == " ") {
+    shoot = false;
+  }
 }
